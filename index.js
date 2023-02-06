@@ -13,62 +13,127 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {f
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(express.static('public'));
 
-app.get('/movies', (req, res) => {
-	res.json(topTenMovies);
-});
-
+// get Welcome message
 app.get('/', (req, res) => {
 	res.send('Welcome to HIFI MOVIE API!');
 });
 
-let topTenMovies = [
+// get list of all movies
+app.get('/movies', (req, res) => {
+	res.status(200).json(movies);
+});
+
+// get data on choosen movie
+app.get('/movies/:title', (req, res) => {
+	const title = req.params.title;
+	const movie = movies.find( movie => movie.title === title);
+	console.log(movie);
+
+	if (!movie) {
+		const message = 'This movie is not in our database. Please try another.'
+		res.status(400).send(message);
+	}	else {
+		res.status(200).json(movie);	
+	}
+});
+
+// get data on choosen genre
+app.get('/movies/:genre', (req, res) => {
+	res.status(200).json(movies.find((genre) => 
+	{ return movies.genre === req.params.genre}));
+});
+
+// get data on choosen director
+app.get('/movies', (req, res) => {
+	res.status(200).json(movies.find((director) => 
+	{ return movies.director === req.params.director}));
+});
+
+// add new user
+app.post('/users', (req, res) => {
+	req._construct
+	res._construct
+})
+
+// update username
+app.put('/users/:id', (req, res) => {
+
+})
+
+// add to favorite movies list
+app.put('/users/:id', (req, res) => {
+	
+})
+
+// remove from favorite movies list
+app.put('/users/:id', (req, res) => {
+	
+})
+
+// remove user
+app.delete('/users', (req, res) => {
+	req._construct
+	res._construct
+})
+
+let movies = [
 	{
 		title: 'High Fidelity',
+		genre: 'Comedy',
 		staring: 'John Cusack',
 		director: 'Stephen Frears',
 	},
 	{
 		title: 'Amélie',
+		genre: 'Drama',
 		staring: 'Audrey Tautou',
 		director: 'Jean-Pierre Jeunet',
 	},
 	{
 		title: 'The Life Aquatic with Steve Zissou',
+		genre: 'Comedy',
 		staring: 'Bill Murray',
 		director: 'Wes Anderson',
 	},
 	{
 		title: 'The Fellowship of the Ring',
+		genre: 'Adventure',
 		staring: 'Elijah Wood, Viggo Mortensen, Ian McKellan',
 		director: 'Peter Jackson',
 	},
 	{
 		title: 'Guardians of the Galaxy',
+		genre: 'Action',
 		staring: 'Chris Pratt, Zoe Zaldana',
 		director: 'James Gunn',
 	},
 	{
 		title: 'The Matrix',
+		genre: 'Action',
 		staring: 'Keanu Reeves, Carrie-Anne Moss',
 		director: 'Lana Wachowski, Lilly Wachowski',
 	},
 	{
 		title: 'Newsies',
+		genre: 'Musical',
 		staring: 'Christan Bale',
 		director: 'Kenny Ortega',
 	},
 	{
 		title: 'Reservoir Dogs',
+		genre: 'Crime',
 		staring: 'Harvey Keitel, Tim Roth',
 		director: 'Quentin Tarantino',
 	},
 	{
 		title: 'The Sandlot',
+		genre: 'Family',
 		staring: 'Tom Guiry, James Earl Jones',
 		director: 'David Mickey Evans',
 	},
 	{
 		title: 'The Three Caballeros',
+		genre: 'Family',
 		staring: 'Aurora Miranda, Clarence Nash',
 		director: 'Norman Ferguson, Harold Young',
 	},	  
