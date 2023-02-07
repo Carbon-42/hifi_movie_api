@@ -92,13 +92,37 @@ app.put('/users/:id/:name', (req, res) => {
 })
 
 // add to favorite movies list
-app.put('/users/:id', (req, res) => {
-	
+app.post('/users/:id/:movieTitle', (req, res) => {
+	const movieTitle = req.params.movieTitle;
+	const userid = users.find((userid) => { return userid.id === req.params.id} );
+
+    if (userid) {
+        userid.favoriteMovies.push(movieTitle);
+        res.status(200).send(movieTitle + ' has been added to ' + userid.name + "'s" + ' favorite movies!');
+    } else {
+        res.status(400).send('no such user')
+    }
 })
 
 // remove from favorite movies list
-app.put('/users/:id', (req, res) => {
-	
+app.delete('/users/:id/:movieTitle', (req, res) => {
+	const userid = users.find((userid) => { return userid.id === req.params.id} );
+
+    if (userid) {
+		const movieTitle = req.params.movieTitle;
+		const listTitle = userid.favoriteMovies.includes(movieTitle);
+
+		if (listTitle) {
+			userid.favoriteMovies = userid.favoriteMovies.filter( title => title !== movieTitle);
+			console.log(userid.favoriteMovies);
+			res.status(200).send(movieTitle + ' has been removed from ' + userid.name + "'s" + ' favorite movies!');
+		} else {
+			res.status(400).send(movieTitle + ' is not in ' + userid.name + "'s" + ' list of favorite movies.')
+			console.log(userid.favoriteMovies);
+		}
+    } else {
+        res.status(400).send('no such user')
+    }
 })
 
 // remove user
@@ -116,7 +140,7 @@ let users = [
 	{
 		id: '002',
 		name: 'Christopher',
-		favoriteMovies: []
+		favoriteMovies: ['Die Hard', 'Strange']
 	},
 	{
 		id: '003',
