@@ -27,7 +27,6 @@ app.get('/movies', (req, res) => {
 app.get('/movies/:title', (req, res) => {
 	const title = req.params.title;
 	const movie = movies.find( movie => movie.title === title);
-	console.log(movie);
 
 	if (!movie) {
 		const message = 'This movie is not in our database. Please try another.'
@@ -37,16 +36,30 @@ app.get('/movies/:title', (req, res) => {
 	}
 });
 
-// get data on choosen genre
-app.get('/movies/:genre', (req, res) => {
-	res.status(200).json(movies.find((genre) => 
-	{ return movies.genre === req.params.genre}));
+// get data on all movies in choosen genre
+app.get('/movies/genres/:genreName', (req, res) => {
+	const genreName = req.params.genreName;
+	const genre = movies.filter( movie => movie.genre === genreName);
+
+	if (genre.length < 1) {
+		const message = 'This genre is not in our database. Please try another.'
+		res.status(400).send(message);
+	}	else {
+		res.status(200).json(genre);	
+	}
 });
 
-// get data on choosen director
-app.get('/movies', (req, res) => {
-	res.status(200).json(movies.find((director) => 
-	{ return movies.director === req.params.director}));
+// get data on movies by choosen director
+app.get('/movies/directors/:directorName', (req, res) => {
+	const directorName = req.params.directorName;
+	const director = movies.filter( movie => movie.director === directorName);
+
+	if (director.length < 1) {
+		const message = 'This Director is not in our database. Please try another.'
+		res.status(400).send(message);
+	}	else {
+		res.status(200).json(director);	
+	}
 });
 
 // add new user
