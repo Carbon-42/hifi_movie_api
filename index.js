@@ -40,9 +40,9 @@ app.get('/movies/:title', (req, res) => {
 });
 
 // get data on all movies in choosen genre
-app.get('/movies/genres/:genreName', (req, res) => {
-	const genreName = req.params.genreName;
-	const genre = movies.filter( movie => movie.genre === genreName);
+app.get('/movies/genres/:genrename', (req, res) => {
+	const genrename = req.params.genrename;
+	const genre = movies.filter( movie => movie.genre === genrename);
 
 	if (genre.length < 1) {
 		const message = 'This genre is not in our database. Please try another.'
@@ -72,7 +72,7 @@ app.post('/users', (req, res) => {
 	if (newUser.name) {
 		newUser.id = uuid.v4();
 		users.push(newUser);
-		res.status(201).send(newUser);
+		res.status(201).json(newUser);
 	} else {
 		const message = 'Missing "name" in request body';
 	  	res.status(400).send(message);
@@ -92,31 +92,31 @@ app.put('/users/:id/:name', (req, res) => {
 })
 
 // add to favorite movies list
-app.post('/users/:id/:movieTitle', (req, res) => {
-	const movieTitle = req.params.movieTitle;
+app.post('/users/:id/:movietitle', (req, res) => {
+	const movietitle = req.params.movietitle;
 	const userid = users.find((userid) => { return userid.id === req.params.id} );
 
     if (userid) {
-        userid.favoriteMovies.push(movieTitle);
-        res.status(200).send(movieTitle + ' has been added to ' + userid.name + "'s" + ' favorite movies!');
+        userid.favoriteMovies.push(movietitle);
+        res.status(200).json(movietitle + ' has been added to ' + userid.name + "'s" + ' favorite movies! Here is your current list: '  + userid.favoriteMovies);
     } else {
-        res.status(400).send('no such user')
+        res.status(400).send('no such user');
     }
 })
 
 // remove from favorite movies list
-app.delete('/users/:id/:movieTitle', (req, res) => {
+app.delete('/users/:id/:movietitle', (req, res) => {
 	const userid = users.find((userid) => { return userid.id === req.params.id} );
 
     if (userid) {
-		const movieTitle = req.params.movieTitle;
-		const listTitle = userid.favoriteMovies.includes(movieTitle);
+		const movietitle = req.params.movietitle;
+		const listTitle = userid.favoriteMovies.includes(movietitle);
 
 		if (listTitle) {
-			userid.favoriteMovies = userid.favoriteMovies.filter( title => title !== movieTitle);
-			res.status(200).send(movieTitle + ' has been removed from ' + userid.name + "'s" + ' favorite movies!');
+			userid.favoriteMovies = userid.favoriteMovies.filter( title => title !== movietitle);
+			res.status(200).json(movietitle + ' has been removed from ' + userid.name + "'s" + ' favorite movies! Here is your current list: '  + userid.favoriteMovies);
 		} else {
-			res.status(400).send(movieTitle + ' is not in ' + userid.name + "'s" + ' list of favorite movies.')
+			res.status(400).send(movietitle + ' is not in ' + userid.name + "'s" + ' list of favorite movies. Here is your current list: '  + userid.favoriteMovie);
 		}
     } else {
         res.status(400).send('no such user')
