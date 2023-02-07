@@ -114,11 +114,9 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 
 		if (listTitle) {
 			userid.favoriteMovies = userid.favoriteMovies.filter( title => title !== movieTitle);
-			console.log(userid.favoriteMovies);
 			res.status(200).send(movieTitle + ' has been removed from ' + userid.name + "'s" + ' favorite movies!');
 		} else {
 			res.status(400).send(movieTitle + ' is not in ' + userid.name + "'s" + ' list of favorite movies.')
-			console.log(userid.favoriteMovies);
 		}
     } else {
         res.status(400).send('no such user')
@@ -126,9 +124,15 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 })
 
 // remove user
-app.delete('/users', (req, res) => {
-	// req._construct
-	// res._construct
+app.delete('/users/:id', (req, res) => {
+	const userid = users.find((userid) => { return userid.id === req.params.id});
+
+	if (userid) {
+		users = users.filter((user) => { return user.id !== req.params.id});
+		res.status(201).send(userid.name + "'s account has been deleted.");
+	} else {
+		res.status(400).send('User not found. Please try again.');
+	}
 })
 
 let users = [
