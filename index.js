@@ -1,9 +1,12 @@
 const express = require('express'),
 	morgan = require('morgan'),
 	fs = require('fs'), 
-	path = require('path');
+	path = require('path'),
+	bodyParser = require('body-parser'),
+	uuid = require('uuid')
 
 const app = express();
+app.use(bodyParser.json());
 
 // create a write stream (in append mode)
 // a ‘log.txt’ file is created in root directory
@@ -64,9 +67,16 @@ app.get('/movies/directors/:directorName', (req, res) => {
 
 // add new user
 app.post('/users', (req, res) => {
-	req._construct
-	res._construct
-})
+	const newUser = req.body;
+
+	if (newUser.name) {
+		newUser.id = uuid.v4();
+		users.push(newUser);
+		res.status(201).send(newUser);
+	} else {
+		const message = 'Missing "name" in request body';
+	  	res.status(400).send(message);
+	}})
 
 // update username
 app.put('/users/:id', (req, res) => {
@@ -85,9 +95,27 @@ app.put('/users/:id', (req, res) => {
 
 // remove user
 app.delete('/users', (req, res) => {
-	req._construct
-	res._construct
+	// req._construct
+	// res._construct
 })
+
+let users = [
+	{
+		id: '001',
+		name: 'Brad',
+		favoriteMovies: []
+	},
+	{
+		id: '002',
+		name: 'Christopher',
+		favoriteMovies: []
+	},
+	{
+		id: '003',
+		name: 'Danielle',
+		favoriteMovies: []
+	},
+];
 
 let movies = [
 	{
