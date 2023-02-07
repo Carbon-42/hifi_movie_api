@@ -78,9 +78,17 @@ app.post('/users', (req, res) => {
 	  	res.status(400).send(message);
 	}})
 
-// update username
-app.put('/users/:id', (req, res) => {
+// update username by id
+app.put('/users/:id/:name', (req, res) => {
+    const userid = users.find((userid) => { return userid.id === req.params.id} );
 
+	if (userid) {
+        userid.name = req.params.name;
+        res.status(200).send('Your username has been updated to ' + userid.name);
+		console.log(userid)
+    } else {
+        res.status(400).send('no such user')
+    }
 })
 
 // add to favorite movies list
