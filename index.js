@@ -85,7 +85,6 @@ app.put('/users/:id/:name', (req, res) => {
 	if (userid) {
         userid.name = req.params.name;
         res.status(200).send('Your username has been updated to ' + userid.name);
-		console.log(userid)
     } else {
         res.status(400).send('no such user')
     }
