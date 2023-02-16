@@ -90,23 +90,10 @@ app.get('/movies', (req, res) => {
 });
 
 // get data on choosen movie
-// app.get('/movies/:title', (req, res) => {
-// 	const title = req.params.title;
-// 	const movie = movies.find( movie => movie.title === title);
-
-// 	if (!movie) {
-// 		const message = 'This movie is not in our database. Please try another.'
-// 		res.status(400).send(message);
-// 	}	else {
-// 		res.status(200).json(movie);	
-// 	}
-// });
-
-app.get('/movies/:title', (req, res) => {
-	Movies.findOne({ Title: req.params.Title})
+app.get('/movies/:Title', (req, res) => {
+	Movies.findOne({Title: req.params.Title})
 		.then((title) => {
 			res.json(title);
-			console.log(title);
 		})
 		.catch((err) => {
 			console.error(err);
@@ -115,30 +102,20 @@ app.get('/movies/:title', (req, res) => {
 });
 
 // get data on all movies in choosen genre
-app.get('/movies/:genrename', (req, res) => {
-	Movies.find({ "Genre.name": req.params.genrename})
-		.then((genre) => {
-			res.json(genre);
+app.get('/movies/genres/:genreName', (req, res) => {
+	Movies.find({ 'Genre.Name': req.params.genreName})
+		.then((movie) => {
+			res.json(movie);
 		})
 		.catch((err) => {
 			console.error(err);
 			res.status(500).send('Error ' + err);
 		});
-
-	// const genrename = req.params.genrename;
-	// const genre = movies.filter( movie => movie.genre === genrename);
-
-	// if (genre.length < 1) {
-	// 	const message = 'This genre is not in our database. Please try another.'
-	// 	res.status(400).send(message);
-	// }	else {
-	// 	res.status(200).json(genre);	
-	// }
 });
 
 // get data on movies by choosen director
-app.get('/movies/:directorName', (req, res) => {
-	Movies.find({ "Director.name": req.params.directorName})
+app.get('/movies/directors/:directorName', (req, res) => {
+	Movies.find({ "Director.Name": req.params.directorName})
 		.then((director) => {
 			res.json(director);
 		})
@@ -146,16 +123,6 @@ app.get('/movies/:directorName', (req, res) => {
 			console.error(err);
 			res.status(500).send('Error ' + err);
 		});
-	
-	// const directorName = req.params.directorName;
-	// const director = movies.filter( movie => movie.director === directorName);
-
-	// if (director.length < 1) {
-	// 	const message = 'This Director is not in our database. Please try another.'
-	// 	res.status(400).send(message);
-	// }	else {
-	// 	res.status(200).json(director);	
-	// }
 });
 
 // // get all users
