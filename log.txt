@@ -604,3 +604,6 @@ Timestamp: Sun Jan 29 2023 18:08:10 GMT-0700 (Mountain Standard Time)
 ::1 - - [16/Feb/2023:22:59:59 +0000] "GET /movies/Wes%20Anderson HTTP/1.1" 200 4 "-" "PostmanRuntime/7.31.0"
 ::1 - - [16/Feb/2023:23:00:59 +0000] "GET /movies/directors/Wes%20Anderson HTTP/1.1" 200 2033 "-" "PostmanRuntime/7.31.0"
 ::1 - - [16/Feb/2023:23:01:07 +0000] "GET /movies/genres/Comedy HTTP/1.1" 200 4390 "-" "PostmanRuntime/7.31.0"
+::1 - - [17/Feb/2023:15:51:31 +0000] "GET /movies/Comedy HTTP/1.1" 200 4 "-" "PostmanRuntime/7.31.0"
+::1 - - [17/Feb/2023:15:52:02 +0000] "GET /movies/Comedy HTTP/1.1" 200 4 "-" "PostmanRuntime/7.31.0"
+::1 - - [17/Feb/2023:15:52:32 +0000] "GET /movies/genres/Comedy HTTP/1.1" 200 4390 "-" "PostmanRuntime/7.31.0"
