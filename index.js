@@ -36,8 +36,8 @@ require('./passport.js');
 
 mongoose.set('strictQuery', false);
 // mongoose.connect('mongodb://localhost:27017/hifiDB', { useNewUrlParser: true, useUnifiedTopology: true});
-// mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.connect( 'mongodb+srv://carbon42:fTTUEubRHc9v68F4@carbon42cluster.envktin.mongodb.net/hifiDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect( 'mongodb+srv://carbon42:fTTUEubRHc9v68F4@carbon42cluster.envktin.mongodb.net/hifiDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true});
 
 // create a write stream (in append mode)
 // a ‘log.txt’ file is created in root directory
@@ -121,7 +121,7 @@ app.get('/', (req, res) => {
 });
 
 // get list of all movies
-app.get('/movies', /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
 	Movies.find()
 		.then((Movies) => {
 			res.status(201).json(Movies);
