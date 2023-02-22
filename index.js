@@ -50,7 +50,7 @@ app.use(express.static('public'));
 //CREATE FUNCTIONS
 
 // add new user
-app.post('/users', (req, res) => {
+app.post('/users',
 	// Validation logic here for request
 	//you can either use a chain of methods like .not().isEmpty()
 	// which means "opposite of isEmpty" in plain english "is not empty"
@@ -68,7 +68,6 @@ app.post('/users', (req, res) => {
 		if(!errors.isEmpty()) {
 			return res.status(422).json({ errors: errors.array() });
 		}
-	}
 	
 	let hashPassword = Users.hashPassword(req.body.Password);
 
