@@ -37,7 +37,6 @@ require('./passport.js');
 mongoose.set('strictQuery', false);
 // mongoose.connect('mongodb://localhost:27017/hifiDB', { useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true});
-// mongoose.connect( 'mongodb+srv://carbon42:fTTUEubRHc9v68F4@carbon42cluster.envktin.mongodb.net/hifiDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true});
 
 // create a write stream (in append mode)
 // a ‘log.txt’ file is created in root directory
@@ -196,7 +195,14 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 //UPDATE FUNCTIONS
 
 // update a user's info, by username
-app.put('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/users/:username', 
+	[
+		check('Username', 'Username is required').isLength({min: 5}),
+		check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(), 
+		check('Password', 'Password is required').not().isEmpty(),
+		check('Email', 'Email does not appear to be valid').isEmail()
+	],
+	passport.authenticate('jwt', { session: false }), (req, res) => {
 	Users.findOneAndUpdate({ Username: req.params.username}, 
 		{ $set: 
 			{
