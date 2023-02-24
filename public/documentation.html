@@ -43,6 +43,24 @@
 				</td>
 			</tr>
 			<tr>
+				<td>Allow new users to login</td>
+				<td>/users</td>
+				<td>POST</td>
+				<td>Username, Password</td>
+				<td>None</td>
+				<td>A JSON object holding data about the user.
+					{
+						"id": "UserID"
+						"Username": "Name",
+						"Password": "mypassword",
+						"Email": "email@place.com",
+						"Birthday": "YYYY-MM-DD",
+						"Favorite Movies": [],
+						"token": "JWT"
+						}
+				</td>
+			</tr>
+			<tr>
 				<td>Allow users to add a movie to their list of favorites.</td>
 				<td>/users/:username/movies/:MovieID</td>
 				<td>POST</td>
