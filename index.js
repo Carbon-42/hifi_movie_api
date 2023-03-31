@@ -238,11 +238,20 @@ app.put('/users/:username',
 		check('email', 'email does not appear to be valid').isEmail()
 	],
 	passport.authenticate('jwt', { session: false }), (req, res) => {
+		//check the validation objet for errors
+		let errors = validationResult(req);
+
+		if(!errors.isEmpty()) {
+			return res.status(422).json({ errors: errors.array() });
+		}
+	
+	let hashPassword = Users.hashPassword(req.body.password);
+
 	Users.findOneAndUpdate({ username: req.params.username}, 
 		{ $set: 
 			{
 			username: req.body.username,
-			password: req.body.password,
+			password: hashPassword,
 			email: req.body.email,
 			birthday: req.body.birthday
 			}
