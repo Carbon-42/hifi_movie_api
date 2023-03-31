@@ -96,7 +96,7 @@ app.post('/users',
 });
 
 //add new movie to database
-app.post('/movies', (req, res) => {
+app.post('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
 	Movies.findOne({ title: req.body.title})
 	.then((title) => {
 		if (title) {
@@ -155,7 +155,7 @@ app.get('/', (req, res) => {
 });
 
 // get list of all movies
-app.get('/movies', /*passport.authenticate('jwt', { session: false }),*/ (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
 	Movies.find()
 		.then((Movies) => {
 			res.status(201).json(Movies);
