@@ -35,8 +35,8 @@ const passport = require('passport');
 require('./passport.js');
 
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb://localhost:27017/hifiDB', { useNewUrlParser: true, useUnifiedTopology: true});
-// mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect('mongodb://localhost:27017/hifiDB', { useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true});
 
 // create a write stream (in append mode)
 // a ‘log.txt’ file is created in root directory
@@ -95,6 +95,40 @@ app.post('/users',
 	});
 });
 
+//add new movie to database
+app.post('/movies', (req, res) => {
+	Movies.findOne({ title: req.body.title})
+	.then((title) => {
+		if (title) {
+			return res.status(400).send(req.body.title + " already exists");
+		} else {
+			Movies.create({
+				title: req.body.title,
+				description: req.body.description, 
+				genre: {
+					name: req.body.genreName,
+					description: req.body.genreDescription,
+				},
+				director: {
+					name: req.body.directorName,
+					bio: req.body.directorBio,
+				},
+				imagePath: req.body.imagePath,
+				featured: req.body.featured
+			})
+			.then((title) => {res.status(201).json(title)})
+			.catch((error) => {
+				console.error(error);
+				res.status(500).send("Error: " + error);
+			})
+		}
+	})
+	.catch((error) => {
+		console.error(error);
+		res.status(500).send("Error " + error);
+	});
+});
+
 // add to favorite movies list
 app.post('/users/:username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
 	Users.findOneAndUpdate({ username: req.params.username},
@@ -111,6 +145,7 @@ app.post('/users/:username/movies/:MovieID', passport.authenticate('jwt', { sess
 		}
 	});
 });
+
 
 //READ FUNCTIONS
 
@@ -132,8 +167,8 @@ app.get('/movies', /*passport.authenticate('jwt', { session: false }),*/ (req, r
 });
 
 // get data on choosen movie
-app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
-	Movies.findOne({Title: req.params.Title})
+app.get('/movies/:title', passport.authenticate('jwt', { session: false }), (req, res) => {
+	Movies.findOne({title: req.params.title})
 		.then((title) => {
 			res.json(title);
 		})
@@ -145,7 +180,7 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
 
 // get data on all movies in choosen genre
 app.get('/movies/genres/:genreName', passport.authenticate('jwt', { session: false }), (req, res) => {
-	Movies.find({ 'Genre.Name': req.params.genreName})
+	Movies.find({ 'genre.name': req.params.genreName})
 		.then((movie) => {
 			res.json(movie);
 		})
@@ -157,7 +192,7 @@ app.get('/movies/genres/:genreName', passport.authenticate('jwt', { session: fal
 
 // get data on movies by choosen director
 app.get('/movies/directors/:directorName', passport.authenticate('jwt', { session: false }), (req, res) => {
-	Movies.find({ "Director.Name": req.params.directorName})
+	Movies.find({ "director.name": req.params.directorName})
 		.then((director) => {
 			res.json(director);
 		})
