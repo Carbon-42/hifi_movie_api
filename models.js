@@ -3,18 +3,17 @@ const mongoose = require("mongoose"),
 
 //creates movie Schema
 let movieSchema = mongoose.Schema({
-    Title: {type: String, required: true},
-    Genre: {
-        Name: String,
-        Description: String,
+    title: {type: String, required: true},
+    genre: {
+        name: String,
+        description: String,
     },
-    Director: {
-        Name: String,
-        Bio: String
+    director: {
+        name: String,
+        bio: String
     },
-    Actors: [String],
-    ImagePath: String,
-    Featured: Boolean
+    imagePath: String,
+    featured: Boolean
 });
 
 //creates user Schema
