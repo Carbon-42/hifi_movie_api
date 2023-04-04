@@ -240,7 +240,7 @@ app.put('/users/:username',
 	passport.authenticate('jwt', { session: false }), (req, res) => {
 		//check the validation object for errors
 		let errors = validationResult(req);
-
+		console.log(req);
 		if(!errors.isEmpty()) {
 			return res.status(422).json({ errors: errors.array() })
 		}
@@ -263,6 +263,7 @@ app.put('/users/:username',
 				res.status(500).send('Error: ' + err);
 			} else {
 				res.json(updatedUser);
+				console.log(updatedUser);
 			}
 		});
 });
