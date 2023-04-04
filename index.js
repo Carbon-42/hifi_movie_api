@@ -234,7 +234,7 @@ app.put('/users/:username',
 	[
 		check('username', 'username is required').isLength({min: 5}),
 		check('username', 'username contains non alphanumeric characters - not allowed.').isAlphanumeric(), 
-		check('password', 'password is required').not().isEmpty(),
+		// check('password', 'password is required').not().isEmpty(),
 		check('email', 'email does not appear to be valid').isEmail()
 	],
 	passport.authenticate('jwt', { session: false }), (req, res) => {
