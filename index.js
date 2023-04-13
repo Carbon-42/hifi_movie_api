@@ -272,10 +272,10 @@ app.put('/users/:username',
 //DELETE FUNCTIONS
 
 // remove from favorite movies list
-app.delete('/users/:username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.delete('/users/:username/movies/:movieID', passport.authenticate('jwt', { session: false }), (req, res) => {
 	Users.findOneAndUpdate({ username: req.params.username},
 		{$pull:
-			{ f: req.params.MovieID }
+			{ f: req.params.movieID }
 		},
 	{new: true}, //this line makes sure that the updated document is returned
 	(err, updatedUser) => {
