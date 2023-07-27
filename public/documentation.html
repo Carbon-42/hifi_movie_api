@@ -20,7 +20,7 @@
 			</tr>
 			<tr>
 				<td>Allow new users to register</td>
-				<td>/users</td>
+				<td>https://hifi-movie-api.onrender.com/users</td>
 				<td>POST</td>
 				<td>None</td>
 				<td>A JSON object holding data about the user. 
@@ -44,7 +44,7 @@
 			</tr>
 			<tr>
 				<td>Allow new users to login</td>
-				<td>/users</td>
+				<td>https://hifi-movie-api.onrender.com/users</td>
 				<td>POST</td>
 				<td>Username, Password</td>
 				<td>None</td>
@@ -62,7 +62,7 @@
 			</tr>
 			<tr>
 				<td>Allow users to add a movie to their list of favorites.</td>
-				<td>/users/:username/movies/:MovieID</td>
+				<td>https://hifi-movie-api.onrender.com/users/:username/movies/:MovieID</td>
 				<td>POST</td>
 				<td>Username, MovieID</td>
 				<td>None</td>
@@ -79,7 +79,7 @@
 			</tr>
 			<tr>
 				<td>Return a list of ALL movies</td>
-				<td>/movies</td>
+				<td>https://hifi-movie-api.onrender.com/movies</td>
 				<td>GET</td>
 				<td>None</td>
 				<td>None</td>
@@ -96,7 +96,7 @@
 			</tr>
 			<tr>
 				<td>Return data (description, genre, director, image URL) about a single movie by title</td>
-				<td>/movies/:Title</td>
+				<td>https://hifi-movie-api.onrender.com/movies/:Title</td>
 				<td>GET</td>
 				<td>title</td>
 				<td>None</td>
@@ -113,7 +113,7 @@
 			</tr>
 			<tr>
 				<td>Return data about a genre (description) by name/title (e.g., "Thriller")</td>
-				<td>/movies/genres/:genreName</td>
+				<td>https://hifi-movie-api.onrender.com/movies/genres/:genreName</td>
 				<td>GET</td>
 				<td>genreName</td>
 				<td>None</td>
@@ -131,7 +131,7 @@
 			</tr>
 			<tr>
 				<td>Return data about a director (bio, birthyear, death year) by name</td>
-				<td>/movies/directors/:directorName</td>
+				<td>https://hifi-movie-api.onrender.com/movies/directors/:directorName</td>
 				<td>GET</td>
 				<td>directorName</td>
 				<td>None</td>
@@ -149,7 +149,7 @@
 			</tr>	
 			<tr>
 				<td>Allow users to update their user info</td>
-				<td>/users/:Username</td>
+				<td>https://hifi-movie-api.onrender.com/users/:Username</td>
 				<td>PUT</td>
 				<td>None</td>
 				<td>A JSON object holding data about the user. 
@@ -173,7 +173,7 @@
 			</tr>
 			<tr>
 				<td>Allow users to remove a movie from their list of favorites</td>
-				<td>/users/:username/movies/:MovieID</td>
+				<td>https://hifi-movie-api.onrender.com/users/:username/movies/:MovieID</td>
 				<td>DELETE</td>
 				<td>Username, MovieID</td>
 				<td>None</td>
@@ -190,7 +190,7 @@
 			</tr>
 			<tr>
 				<td>Allow existing users to deregister (showing only a text that a user email has been removed)</td>
-				<td>/users/:username</td>
+				<td>https://hifi-movie-api.onrender.com/users/:username</td>
 				<td>DELETE</td>
 				<td>None</td>
 				<td>None</td>
