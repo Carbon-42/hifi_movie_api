@@ -113,7 +113,7 @@ app.post('/movies', passport.authenticate('jwt', { session: false }), (req, res)
 					name: req.body.directorName,
 					bio: req.body.directorBio,
 				},
-				imagePath: req.body.imagePath,
+				image: req.body.imagePath,
 				featured: req.body.featured
 			})
 			.then((title) => {res.status(201).json(title)})
