@@ -1,4 +1,4 @@
-# movie_api
+# hifi_movie_api
 
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 
@@ -31,11 +31,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Carbon-42/hifi_movie_api">
-    <img src="./public/meet-app-192.png" alt="Logo" width="80" height="80">
-  </a>
 
-<h3 align="center">A Time & Place</h3>
+<h3 align="center">HIFI Movie API</h3>
 <a href="https://carbon-42.github.io/hifi_movie_api" target="_blank">Live URL</a>
 
   <p align="center">
@@ -80,8 +77,6 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
-
-<img src="./public/Screenshot.png">
 
 HIFI Movie API is a small server-side component of a “movies” web application. The web application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.
 
